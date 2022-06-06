@@ -12,7 +12,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { TableHead } from "@mui/material";
 
 function App(){
@@ -24,13 +23,13 @@ function App(){
     const [nameList, setNameList] = useState([ ])
 
     useEffect(() => {
-        axios.get('http://localhost:4500/api/v1/patients')
+        axios.get('http://localhost:5500/api/v1/patients')
         .then(response => setNameList(response.data));         
 
     }, [])
 
     const addToList= () => {
-        axios.post('http://localhost:4500/api/v1/patients', 
+        axios.post('http://localhost:5500/api/v1/patients', 
             {name:name, 
             age:age
         }).then(() => {
@@ -45,7 +44,7 @@ function App(){
     const updatePatient = (id) => {
         const newName = prompt("Enter new name: ")
         const newAge = prompt("Enter new age: ")
-        axios.put(`http://localhost:4500/api/v1/patients/${id}`, {name: newName, age:newAge}
+        axios.put(`http://localhost:5500/api/v1/patients/${id}`, {name: newName, age:newAge}
         ).then (
             () => {
                 setNameList(
@@ -58,7 +57,7 @@ function App(){
 
     const deletePatient = (id) => {
         if(window.confirm("Are you sure you want to delete this patient? ")) {
-            axios.delete(`http://localhost:4500/api/v1/patients/${id}`).then (
+            axios.delete(`http://localhost:5500/api/v1/patients/${id}`).then (
                 () => {
                   setNameList(nameList.filter((val)=>{
                       return val._id !== id
@@ -119,7 +118,6 @@ function App(){
             </div>
             <div>
             <Typography component="h1"variant="h5" align="center">Patient List</Typography>
-            <Paper>
                 <TableContainer>
                 <Table>
                 <TableHead>
@@ -156,9 +154,6 @@ function App(){
 
             </Table>
                 </TableContainer>
-            </Paper>
-            
-             
 
             </div>
              <br />
