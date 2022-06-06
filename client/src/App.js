@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-// import Pagination from "./components/pagination"
+import Pagination from "./components/pagination"
 import "./style.css"
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -18,8 +18,8 @@ import { TableHead } from "@mui/material";
 function App(){
     const [name, setPatientName] = useState('')
     const [age, setAge] = useState(0);
-    // const [currentPage, setCurrentPage] = useState([])
-    // const [patientsPerPage] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [patientsPerPage] = useState(5)
 
     const [nameList, setNameList] = useState([ ])
 
@@ -69,11 +69,11 @@ function App(){
 
     }
 
-    // const indexOfLastPatient = currentPage * patientsPerPage;
-    // const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-    // const currentPatients = nameList.slice(indexOfFirstPatient, indexOfLastPatient)
+    const indexOfLastPatient = currentPage * patientsPerPage;
+    const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
+    const currentPatients = nameList.slice(indexOfFirstPatient, indexOfLastPatient)
 
-    // const paginate = pageNumber => setCurrentPage(pageNumber)
+    const paginate = pageNumber => setCurrentPage(pageNumber)
     
     return(
         <div className="App">
@@ -128,7 +128,7 @@ function App(){
                         <TableCell> Age</TableCell>
                     </TableRow>      
                 </TableHead>            
-            {nameList.map((val, key) => {
+            {currentPatients.map((val, key) => {
                 return (
                     <div key={key}>
                         <TableBody>
@@ -146,12 +146,12 @@ function App(){
                 )
             })}
             <div className = "page">
-                {/* <Pagination 
+                <Pagination 
                     patientsPerPage={patientsPerPage} 
                     totalPatients={nameList.length} 
                     paginate={paginate}
 
-                            /> */}
+                            />
             </div>
 
             </Table>
